@@ -50,4 +50,3 @@ token-program = [
 orca = [
   "orca_whirlpools_client",
 ]
-raydium = []
