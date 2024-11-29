@@ -6700,8 +6700,9 @@ dependencies = [
 
 [[package]]
 name = "yellowstone-grpc-client"
-version = "4.0.0"
-source = "git+https://github.com/rpcpool/yellowstone-grpc?branch=master#d9aa2eff497ccbb0cb3795587d17e84d4a69ad64"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0c73838262cb899d64e2c94ac6ca2fb5bc5d565aa4f04a68b969645a40a06c2c"
 dependencies = [
  "bytes",
  "futures",
@@ -6713,10 +6714,12 @@ dependencies = [
 
 [[package]]
 name = "yellowstone-grpc-proto"
-version = "4.0.0"
-source = "git+https://github.com/rpcpool/yellowstone-grpc?branch=master#d9aa2eff497ccbb0cb3795587d17e84d4a69ad64"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6b740e0601335c649640732e4cb4061a4ef4bb27017e8e76e4caa3c03566dd0e"
 dependencies = [
  "anyhow",
+ "bincode",
  "prost",
  "protobuf-src",
  "tonic",
