@@ -44,24 +44,44 @@ impl InstructionParser {
         match ix_discriminator {
             SWAP_BASE_IN_IX_DISC => {
                 let swap_base_in: SwapBaseIn = BorshDeserialize::deserialize(&mut ix_data).unwrap();
-                Ok(AmmInstruction::SwapBaseIn(swap_base_in))
+                Ok(AmmInstruction::SwapBaseIn(SwapBaseIn {
+                    amount_in: swap_base_in.amount_in,
+                    minimum_amount_out: swap_base_in.minimum_amount_out,
+                }))
             },
             SWAP_BASE_OUT_IX_DISC => {
                 let swap_base_out: SwapBaseOut =
                     BorshDeserialize::deserialize(&mut ix_data).unwrap();
-                Ok(AmmInstruction::SwapBaseOut(swap_base_out))
+                Ok(AmmInstruction::SwapBaseOut(SwapBaseOut {
+                    max_amount_in: swap_base_out.max_amount_in,
+                    amount_out: swap_base_out.amount_out,
+                }))
             },
             WITHDRAW_IX_DISC => {
                 let withdraw: Withdraw = BorshDeserialize::deserialize(&mut ix_data).unwrap();
-                Ok(AmmInstruction::Withdraw(withdraw))
+                Ok(AmmInstruction::Withdraw(Withdraw {
+                    amount: withdraw.amount,
+                    min_coin_amount: withdraw.min_coin_amount,
+                    min_pc_amount: withdraw.min_pc_amount,
+                }))
             },
             DEPOSIT_IX_DISC => {
                 let deposit: Deposit = BorshDeserialize::deserialize(&mut ix_data).unwrap();
-                Ok(AmmInstruction::Deposit(deposit))
+                Ok(AmmInstruction::Deposit(Deposit {
+                    max_coin_amount: deposit.max_coin_amount,
+                    max_pc_amount: deposit.max_pc_amount,
+                    base_side: deposit.base_side,
+                    other_amount_min: deposit.other_amount_min,
+                }))
             },
             INITIALIZE2_IX_DISC => {
                 let initialize2: Initialize2 = BorshDeserialize::deserialize(&mut ix_data).unwrap();
-                Ok(AmmInstruction::Initialize2(initialize2))
+                Ok(AmmInstruction::Initialize2(Initialize2 {
+                    nonce: initialize2.nonce,
+                    open_time: initialize2.open_time,
+                    init_pc_amount: initialize2.init_pc_amount,
+                    init_coin_amount: initialize2.init_coin_amount,
+                }))
             },
             _ => Err(yellowstone_vixen_core::ParseError::Other(
                 "Unknown instruction".into(),
