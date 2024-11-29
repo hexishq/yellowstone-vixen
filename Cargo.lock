@@ -6779,6 +6779,7 @@ dependencies = [
  "bs58 0.5.1",
  "orca_whirlpools_client",
  "solana-program 2.1.4",
+ "solana-sdk",
  "spl-pod",
  "spl-token",
  "spl-token-2022",
