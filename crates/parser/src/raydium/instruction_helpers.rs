@@ -3,7 +3,7 @@ use borsh::BorshDeserialize;
 pub const DISCRIMINATOR_SIZE: usize = 8;
 
 #[derive(Debug, Clone, Copy, BorshDeserialize)]
-pub enum RaydiumInstruction {
+pub enum AmmInstruction {
     SwapBaseIn(SwapBaseIn),
     SwapBaseOut(SwapBaseOut),
     Withdraw(Withdraw),

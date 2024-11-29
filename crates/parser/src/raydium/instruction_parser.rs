@@ -12,7 +12,7 @@ pub struct InstructionParser;
 
 impl Parser for InstructionParser {
     type Input = InstructionUpdate;
-    type Output = RaydiumInstruction;
+    type Output = AmmInstruction;
 
     fn id(&self) -> std::borrow::Cow<str> {
         "yellowstone_vixen_parser::raydium_amm_v4::InstructionParser".into()
@@ -37,31 +37,31 @@ impl Parser for InstructionParser {
 impl InstructionParser {
     pub(crate) fn parse_impl(
         ix: &InstructionUpdate,
-    ) -> Result<RaydiumInstruction, yellowstone_vixen_core::ParseError> {
+    ) -> Result<AmmInstruction, yellowstone_vixen_core::ParseError> {
         let ix_discriminator: [u8; 8] = ix.data[0..IX_DISCRIMINATOR_SIZE].try_into()?;
         let mut ix_data = &ix.data[IX_DISCRIMINATOR_SIZE..];
 
         match ix_discriminator {
             SWAP_BASE_IN_IX_DISC => {
                 let swap_base_in: SwapBaseIn = BorshDeserialize::deserialize(&mut ix_data).unwrap();
-                Ok(RaydiumInstruction::SwapBaseIn(swap_base_in))
+                Ok(AmmInstruction::SwapBaseIn(swap_base_in))
             },
             SWAP_BASE_OUT_IX_DISC => {
                 let swap_base_out: SwapBaseOut =
                     BorshDeserialize::deserialize(&mut ix_data).unwrap();
-                Ok(RaydiumInstruction::SwapBaseOut(swap_base_out))
+                Ok(AmmInstruction::SwapBaseOut(swap_base_out))
             },
             WITHDRAW_IX_DISC => {
                 let withdraw: Withdraw = BorshDeserialize::deserialize(&mut ix_data).unwrap();
-                Ok(RaydiumInstruction::Withdraw(withdraw))
+                Ok(AmmInstruction::Withdraw(withdraw))
             },
             DEPOSIT_IX_DISC => {
                 let deposit: Deposit = BorshDeserialize::deserialize(&mut ix_data).unwrap();
-                Ok(RaydiumInstruction::Deposit(deposit))
+                Ok(AmmInstruction::Deposit(deposit))
             },
             INITIALIZE2_IX_DISC => {
                 let initialize2: Initialize2 = BorshDeserialize::deserialize(&mut ix_data).unwrap();
-                Ok(RaydiumInstruction::Initialize2(initialize2))
+                Ok(AmmInstruction::Initialize2(initialize2))
             },
             _ => Err(yellowstone_vixen_core::ParseError::Other(
                 "Unknown instruction".into(),
