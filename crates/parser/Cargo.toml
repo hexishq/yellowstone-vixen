@@ -33,8 +33,10 @@ yellowstone-vixen-mock = { workspace = true }
 tokio = "1.39.2"
 
 [features]
-default = ["dep:spl-token"]
+default = [
+]
 proto = [
+  "dep:spl-token",
   "dep:yellowstone-vixen-proto",
   "yellowstone-vixen-core/proto",
   "yellowstone-vixen-proto/parser",
