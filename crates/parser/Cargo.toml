@@ -33,7 +33,7 @@ yellowstone-vixen-mock = { workspace = true }
 tokio = "1.39.2"
 
 [features]
-default = ["orca","raydium", "token-program"]
+default = []
 proto = [
   "dep:yellowstone-vixen-proto",
   "yellowstone-vixen-core/proto",
