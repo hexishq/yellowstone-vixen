@@ -1,9 +1,10 @@
 use borsh::BorshDeserialize;
 use solana_program::program_error::ProgramError;
-use yellowstone_vixen_core::{AccountUpdate, ParseResult, Parser};
+use yellowstone_vixen_core::{AccountUpdate, ParseResult, Parser, Prefilter};
 
-use super::account_helpers::{
-    AmmInfo, Fees, TargetOrders, AMM_INFO_SIZE, FEES_SIZE, TARGET_ORDERS_SIZE,
+use super::{
+    account_helpers::{AmmInfo, Fees, TargetOrders, AMM_INFO_SIZE, FEES_SIZE, TARGET_ORDERS_SIZE},
+    instruction_parser::RAYDIUM_AMM_V4_POOL,
 };
 #[allow(clippy::large_enum_variant)]
 #[derive(Debug)]
@@ -22,11 +23,14 @@ impl Parser for AccountParser {
     type Output = RaydiumAccountState;
 
     fn id(&self) -> std::borrow::Cow<str> {
-        todo!()
+        "yellowstone_vixen_parser::raydium::AccountParser".into()
     }
 
     fn prefilter(&self) -> yellowstone_vixen_core::Prefilter {
-        todo!()
+        Prefilter::builder()
+            .account_owners([RAYDIUM_AMM_V4_POOL])
+            .build()
+            .unwrap()
     }
 
     async fn parse(&self, acc_update: &AccountUpdate) -> ParseResult<Self::Output> {
