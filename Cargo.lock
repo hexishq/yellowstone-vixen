@@ -6781,6 +6781,7 @@ dependencies = [
  "borsh 1.5.3",
  "bs58 0.5.1",
  "orca_whirlpools_client",
+ "prost",
  "solana-program 2.1.4",
  "solana-sdk",
  "spl-pod",

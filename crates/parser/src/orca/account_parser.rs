@@ -45,7 +45,9 @@ impl Parser for AccountParser {
     type Input = AccountUpdate;
     type Output = OrcaProgramState;
 
-    fn id(&self) -> Cow<str> { "yellowstone_vixen_parser::orca::AccountParser".into() }
+    fn id(&self) -> Cow<str> {
+        "yellowstone_vixen_parser::orca::AccountParser".into()
+    }
 
     fn prefilter(&self) -> Prefilter {
         Prefilter::builder()
@@ -67,7 +69,6 @@ impl ProgramParser for AccountParser {
     }
 }
 
-#[cfg(feature = "proto")]
 mod proto_parser {
 
     use orca_whirlpools_client::types::{PositionRewardInfo, Tick, WhirlpoolRewardInfo};

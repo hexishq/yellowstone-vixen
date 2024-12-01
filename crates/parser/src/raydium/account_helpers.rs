@@ -39,7 +39,7 @@ pub struct AmmInfo {
     pub padding: [u64; 2],
 }
 
-#[derive(Debug, BorshDeserialize, BorshSerialize)]
+#[derive(Debug, BorshDeserialize, BorshSerialize, Clone, Copy)]
 pub struct OutPutData {
     pub need_take_pnl_coin: u64,
     pub need_take_pnl_pc: u64,
@@ -58,7 +58,7 @@ pub struct OutPutData {
 }
 
 pub(crate) const FEES_SIZE: usize = std::mem::size_of::<Fees>();
-#[derive(Debug, BorshDeserialize, BorshSerialize)]
+#[derive(Debug, BorshDeserialize, BorshSerialize, Clone, Copy)]
 pub struct Fees {
     pub min_separate_numerator: u64,
     pub min_separate_denominator: u64,
@@ -99,7 +99,7 @@ pub struct TargetOrders {
     pub padding3: [u64; 10],
     pub free_slot_bits: u128,
 }
-#[derive(Debug, BorshDeserialize, BorshSerialize)]
+#[derive(Debug, BorshDeserialize, BorshSerialize, Clone, Copy)]
 
 pub struct TargetOrder {
     pub price: u64,

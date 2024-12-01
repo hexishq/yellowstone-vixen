@@ -8,6 +8,7 @@ use crate::helpers::IX_DISCRIMINATOR_SIZE;
 
 use super::instruction_helpers::*;
 
+#[derive(Clone, Copy, Debug)]
 pub struct InstructionParser;
 
 impl Parser for InstructionParser {
