@@ -1,6 +1,6 @@
 use borsh::BorshDeserialize;
 use solana_program::program_error::ProgramError;
-use yellowstone_vixen_core::{AccountUpdate, ParseResult, Parser, Prefilter};
+use yellowstone_vixen_core::{AccountUpdate, ParseResult, Parser, Prefilter, ProgramParser};
 
 use super::{
     account_helpers::{AmmInfo, Fees, TargetOrders, AMM_INFO_SIZE, FEES_SIZE, TARGET_ORDERS_SIZE},
@@ -40,6 +40,13 @@ impl Parser for AccountParser {
             .ok_or(ProgramError::InvalidArgument)?;
 
         self.unpack(&mut inner.data.as_slice())
+    }
+}
+
+impl ProgramParser for AccountParser {
+    #[inline]
+    fn program_id(&self) -> yellowstone_vixen_core::Pubkey {
+        RAYDIUM_AMM_V4_POOL.to_bytes().into()
     }
 }
 
