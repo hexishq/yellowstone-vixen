@@ -77,13 +77,16 @@ impl AccountParser {
 
 #[cfg(feature = "proto")]
 mod proto_parser {
+    use yellowstone_vixen_core::proto::ParseProto;
+
     use super::*;
     use crate::{
         helpers::IntoProto,
         raydium::{
             account_helpers::{OutPutData, TargetOrder},
             account_proto_helpers::{
-                AmmInfoProto, FeesProto, OutPutDataProto, TargetOrderProto, TargetOrdersProto,
+                raydium_account_state_proto, AmmInfoProto, FeesProto, OutPutDataProto,
+                RaydiumAccountStateProto, TargetOrderProto, TargetOrdersProto,
             },
         },
     };
@@ -210,6 +213,25 @@ mod proto_parser {
                 price: self.price.into(),
                 vol: self.vol.into(),
             }
+        }
+    }
+
+    impl ParseProto for AccountParser {
+        type Message = RaydiumAccountStateProto;
+
+        fn output_into_message(value: Self::Output) -> Self::Message {
+            let state_oneof = match value {
+                RaydiumAccountState::AmmInfo(amm_info) => Some(
+                    raydium_account_state_proto::State::AmmInfo(amm_info.into_proto()),
+                ),
+                RaydiumAccountState::Fees(fees) => {
+                    Some(raydium_account_state_proto::State::Fees(fees.into_proto()))
+                },
+                RaydiumAccountState::TargetOrder(target_orders) => Some(
+                    raydium_account_state_proto::State::TargetOrder(target_orders.into_proto()),
+                ),
+            };
+            Self::Message { state_oneof }
         }
     }
 }

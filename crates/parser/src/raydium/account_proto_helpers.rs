@@ -1,6 +1,33 @@
-use borsh::{BorshDeserialize, BorshSerialize};
+#[derive(::prost::Message)]
+pub struct RaydiumAccountStateProto {
+    #[prost(oneof = "raydium_account_state_proto::State", tags = "1, 2, 3")]
+    pub(crate) state_oneof: Option<raydium_account_state_proto::State>,
+}
 
-#[derive(BorshDeserialize, BorshSerialize, ::prost::Message)]
+pub mod raydium_account_state_proto {
+    #[derive(::prost::Oneof)]
+    pub enum State {
+        #[prost(message, tag = "1")]
+        AmmInfo(super::AmmInfoProto),
+        #[prost(message, tag = "2")]
+        Fees(super::FeesProto),
+        #[prost(message, tag = "3")]
+        TargetOrder(super::TargetOrdersProto),
+    }
+}
+
+impl ::prost::Name for RaydiumAccountStateProto {
+    const NAME: &'static str = "RaydiumAccountStateProto";
+    const PACKAGE: &'static str = "vixen.parser";
+    fn full_name() -> ::prost::alloc::string::String {
+        "vixen.parser.RaydiumProgramStateProto".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/vixen.parser.RaydiumProgramStateProto".into()
+    }
+}
+
+#[derive(::prost::Message)]
 pub struct AmmInfoProto {
     #[prost(uint64, tag = "1")]
     pub status: u64,
@@ -70,7 +97,7 @@ pub struct AmmInfoProto {
     pub padding: Vec<u64>,
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Clone, ::prost::Message)]
+#[derive(Clone, ::prost::Message)]
 pub struct OutPutDataProto {
     #[prost(uint64, tag = "1")]
     pub need_take_pnl_coin: u64,
@@ -102,7 +129,7 @@ pub struct OutPutDataProto {
     pub swap_take_coin_fee: u64,
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Clone, Copy, ::prost::Message)]
+#[derive(Clone, Copy, ::prost::Message)]
 pub struct FeesProto {
     #[prost(uint64, tag = "1")]
     pub min_separate_numerator: u64,
@@ -122,7 +149,7 @@ pub struct FeesProto {
     pub swap_fee_denominator: u64,
 }
 
-#[derive(BorshDeserialize, BorshSerialize, ::prost::Message)]
+#[derive(::prost::Message)]
 pub struct TargetOrdersProto {
     #[prost(uint64, repeated, tag = "1")]
     pub owner: Vec<u64>,
@@ -175,7 +202,7 @@ pub struct TargetOrdersProto {
     #[prost(string, tag = "25")]
     pub free_slot_bits: ::prost::alloc::string::String,
 }
-#[derive(BorshDeserialize, BorshSerialize, Clone, Copy, ::prost::Message)]
+#[derive(Clone, Copy, ::prost::Message)]
 pub struct TargetOrderProto {
     #[prost(uint64, tag = "1")]
     pub price: u64,
