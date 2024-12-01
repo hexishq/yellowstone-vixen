@@ -1,7 +1,5 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 
-pub(crate) const AMM_INFO_SIZE: usize = std::mem::size_of::<AmmInfoProto>();
-
 #[derive(BorshDeserialize, BorshSerialize, ::prost::Message)]
 pub struct AmmInfoProto {
     #[prost(uint64, tag = "1")]
@@ -104,7 +102,6 @@ pub struct OutPutDataProto {
     pub swap_take_coin_fee: u64,
 }
 
-pub(crate) const FEES_SIZE: usize = std::mem::size_of::<FeesProto>();
 #[derive(BorshDeserialize, BorshSerialize, Clone, Copy, ::prost::Message)]
 pub struct FeesProto {
     #[prost(uint64, tag = "1")]
@@ -125,7 +122,6 @@ pub struct FeesProto {
     pub swap_fee_denominator: u64,
 }
 
-pub(crate) const TARGET_ORDERS_SIZE: usize = std::mem::size_of::<TargetOrdersProto>();
 #[derive(BorshDeserialize, BorshSerialize, ::prost::Message)]
 pub struct TargetOrdersProto {
     #[prost(uint64, repeated, tag = "1")]
