@@ -16,8 +16,8 @@ pub use error::*;
 mod helpers;
 #[cfg(feature = "orca")]
 pub mod orca;
-#[cfg(feature = "raydium")]
-pub mod raydium;
+#[cfg(feature = "raydium-amm-v4")]
+pub mod raydium_amm_v4;
 #[cfg(feature = "token-extensions")]
 pub mod token_extension_program;
 #[cfg(feature = "token-program")]
